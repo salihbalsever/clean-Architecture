@@ -2,17 +2,19 @@ import 'package:diwithriverpood/presentation/provider/products_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../data/models/product_model.dart';
+
 class ProductScreen extends ConsumerWidget {
   const ProductScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final products = ref.watch(productProvider);
+    List<Product> products = ref.watch(productProvider);
     return Scaffold(
-      body: ListView.builder(
-          itemCount: products.productList.length,
+      body: products.isEmpty?const Center(child: CircularProgressIndicator(),):ListView.builder(
+          itemCount: products.length,
           itemBuilder: (context, index) {
-            var productList=products.productList[index];
+            var productList=products[index];
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
