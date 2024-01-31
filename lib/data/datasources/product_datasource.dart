@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import '../../domain/models/product_model.dart';
-import '../../core/base_model.dart';
 import 'package:http/src/client.dart';
 import 'package:http/http.dart' as http;
+
+import '../models/product_model.dart';
 abstract class IProductDataSource {
   Future<List<Product>> getData({
     required String subUrl,
