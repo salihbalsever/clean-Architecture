@@ -10,7 +10,9 @@ class ProductProvider extends StateNotifier<List<Product>> {
 
   ProductDataSource productDataSource = ProductDataSource();
   List<Product> productList = [];
-
+  void initialize() {
+    getProducts();
+  }
  Future getProducts() async{
     try{
      productList= await productDataSource.getData(subUrl:"products");
