@@ -4,13 +4,13 @@ import 'package:http/src/client.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/product_model.dart';
-abstract class IProductDataSource {
+abstract class IProductRemoteDataSource {
   Future<List<Product>> getData({
     required String subUrl,
     Map<String, String>? filterHeaders,
   });
 }
-class ProductDataSource extends IProductDataSource{
+class ProductDataSource extends IProductRemoteDataSource{
   Client client = http.Client();
 
   @override

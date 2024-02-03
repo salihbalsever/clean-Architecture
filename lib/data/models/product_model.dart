@@ -5,18 +5,28 @@
 import 'dart:convert';
 
 import 'package:diwithriverpood/core/base_model.dart';
+import 'package:hive/hive.dart';
 
 import 'rating_model.dart';
 
+part 'product_model.g.dart';
 
+@HiveType(typeId: 0, adapterName: "ProductAdapter")
 
 class Product {
+  @HiveField(0)
   int id;
+  @HiveField(1)
   String title;
+  @HiveField(2)
   double price;
+  @HiveField(3)
   String description;
+  @HiveField(4)
   String category;
+  @HiveField(5)
   String image;
+  @HiveField(6)
   Rating rating;
 
   Product({
