@@ -1,7 +1,7 @@
 import 'package:diwithriverpood/data/models/product_model.dart';
 import 'package:hive/hive.dart';
 
-abstract class IProductLocalDataSource<Product> {
+abstract class IProductLocalDataSource{
 
   Future<Box> openBox();
 
@@ -13,7 +13,7 @@ abstract class IProductLocalDataSource<Product> {
 
 }
 
-class ProductLocalDataSource extends IProductLocalDataSource<Product>{
+class ProductLocalDataSource extends IProductLocalDataSource{
   static const key= "products";
   @override
   Future<void> addItem(List<Product> products) async {
