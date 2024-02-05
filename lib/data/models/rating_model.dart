@@ -1,8 +1,13 @@
 
 import 'package:diwithriverpood/core/base_model.dart';
+import 'package:hive/hive.dart';
+part 'rating_model.g.dart';
+@HiveType(typeId: 1, adapterName: "RatingAdapter")
 
 class Rating {
+  @HiveField(0)
   double rate;
+  @HiveField(1)
   int count;
 
   Rating({

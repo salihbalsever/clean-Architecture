@@ -9,7 +9,8 @@ class ProductScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<Product> products = ref.watch(productProvider);
+    var products = ref.watch(productProvider).productList;
+
     return Scaffold(
       body: products.isEmpty?const Center(child: CircularProgressIndicator(),):ListView.builder(
           itemCount: products.length,
