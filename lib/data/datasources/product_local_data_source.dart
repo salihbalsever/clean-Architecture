@@ -23,10 +23,7 @@ class ProductLocalDataSource extends IProductLocalDataSource<Product>{
       await closeBox(box);
     }catch(e){
       print('Error: $e');
-
     }
-
-
   }
 
 
