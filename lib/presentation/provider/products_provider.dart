@@ -5,28 +5,26 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/models/product_model.dart';
 
-class ProductProvider extends StateNotifier<ProductState> {
-  ProductProvider() : super(ProductState(dataExists: false, productList: []));
+class ProductsNotifier extends StateNotifier<ProductsState> {
+  ProductsNotifier() : super(const ProductsStateLoading());
 
   ProductDataSourceRepository productDataSourceRepository =
       ProductDataSourceRepository();
 
-  List<Product> productList = [];
+  List<Product> products = [];
 
   Future<List<Product>> getProducts() async {
     try {
-      productList = await productDataSourceRepository.getProducts("products");
-      state = state.copyWith(productList: productList);
-      return productList;
-    } catch (e) {
-      if (kDebugMode) {
-        print(e.toString());
-        state = state.copyWith(productList: []);
-      }
-      rethrow;
+      products = await productDataSourceRepository.getProducts("products");
+      state = ProductsStateSuccess(products: products);
+      return products;
+    } on Exception{
+        state = const ProductsStateError(error: 'Hatalı');
+        rethrow;
     }
-  }
+    }
+
 }
 
-final productProvider = StateNotifierProvider<ProductProvider, ProductState>(
-    (ref) => ProductProvider()..getProducts());
+final productsNotifier = StateNotifierProvider<ProductsNotifier, ProductsState>(
+    (ref) => ProductsNotifier()..getProducts());
