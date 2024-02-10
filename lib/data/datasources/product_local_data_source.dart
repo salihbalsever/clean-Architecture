@@ -3,11 +3,11 @@ import 'package:hive/hive.dart';
 
 abstract class IProductLocalDataSource{
 
-  Future<Box> openBox();
+  //Future<Box> openBox();
 
-  Future<void> closeBox(Box<Product> box);
+  //Future<void> closeBox(Box<Product> box);
 
-  Future<void> addItem(List<Product> products);
+  Future<void> addItems(List<Product> products);
 
   Future<List<Product>> getProducts();
 
@@ -15,35 +15,38 @@ abstract class IProductLocalDataSource{
 
 class ProductLocalDataSource extends IProductLocalDataSource{
   static const key= "products";
+  Future<Box> get openProductBox async {
+    return await _openBox();
+  }
   @override
-  Future<void> addItem(List<Product> products) async {
+  Future<void> addItems(List<Product> products) async {
     try{
-      final box = await openBox();
+      final box = await _openBox();
       box.put(key, products);
-      await closeBox(box);
+      await _closeBox(box);
     }catch(e){
       print('Error: $e');
     }
   }
 
 
-  @override
-  Future<void> closeBox(Box box) async{
+
+   Future<void> _closeBox(Box box) async{
     await box.close();
   }
 
   @override
   Future<List<Product>> getProducts() async {
-    final box = await openBox();
+    final box = await _openBox();
     List<dynamic> rawProducts = box.get(key, defaultValue: []);
     List<Product> products = List<Product>.from(rawProducts);
-    await closeBox(box);
+    await _closeBox(box);
     return products.isNotEmpty ? products : [];
   }
 
 
   @override
-  Future<Box> openBox() async {
+  Future<Box> _openBox() async {
     return await Hive.openBox("product");
   }
 }

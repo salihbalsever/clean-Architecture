@@ -11,13 +11,14 @@ class ProductsNotifier extends StateNotifier<ProductsState> {
   ProductDataSourceRepository productDataSourceRepository =
       ProductDataSourceRepository();
 
-  List<Product> products = [];
+  List<Product> _products = [];
 
   Future<List<Product>> getProducts() async {
     try {
-      products = await productDataSourceRepository.getProducts("products");
-      state = ProductsStateSuccess(products: products);
-      return products;
+      //state= const ProductsStateLoading();
+      _products = await productDataSourceRepository.getProducts();
+      state = ProductsStateSuccess(products: _products);
+      return _products;
     } on Exception{
         state = const ProductsStateError(error: 'Hatalı');
         rethrow;
