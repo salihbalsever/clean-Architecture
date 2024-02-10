@@ -1,6 +1,5 @@
 import 'package:diwithriverpood/data/repositories/product_repository.dart';
 import 'package:diwithriverpood/presentation/provider/product_state.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/models/product_model.dart';

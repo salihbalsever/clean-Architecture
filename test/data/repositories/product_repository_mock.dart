@@ -1,10 +1,11 @@
 import 'package:diwithriverpood/data/models/product_model.dart';
 import 'package:diwithriverpood/data/models/rating_model.dart';
 import 'package:diwithriverpood/data/repositories/product_repository.dart';
+import 'package:http/http.dart';
 
 class ProductRepositoryMock extends IProductRepository {
   @override
-  Future<List<Product>> getProducts() async{
+  Future<List<Product>> getProducts([Client? client]) async{
     return productList;
   }
 

@@ -1,3 +1,4 @@
+import 'package:diwithriverpood/data/datasources/product_local_data_source.dart';
 import 'package:diwithriverpood/data/models/product_model.dart';
 import 'package:diwithriverpood/data/models/rating_model.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -38,6 +39,8 @@ void main() {
       final products = await product.getProducts();
 
       expect(products.length, equals(products.length));
+   //   expect(products.last, equals(newProducts.first));
+
       expect(products.last.id, equals(newProducts.last.id));  // Adjust this based on your Product model
       expect(products.last.title, equals(newProducts.last.title));  // Adjust this based on your Product mode
     });

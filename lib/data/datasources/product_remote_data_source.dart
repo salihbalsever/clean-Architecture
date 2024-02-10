@@ -6,15 +6,15 @@ import 'package:http/http.dart' as http;
 
 import '../models/product_model.dart';
 abstract class IProductRemoteDataSource {
-  Future<List<Product>> getProducts({
-    Map<String, String>? filterHeaders,
-  });
+  Future<List<Product>> getProducts();
 }
 class ProductRemoteDataSource extends IProductRemoteDataSource{
+
+  ProductRemoteDataSource({required this.client});
   Client client = http.Client();
 
   @override
-  Future<List<Product>> getProducts({Map<String, String>? filterHeaders}) async{
+  Future<List<Product>> getProducts() async{
     var requestHeaders = <String, String>{
       'Content-Type': 'application/json',
 
