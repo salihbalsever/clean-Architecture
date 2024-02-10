@@ -9,32 +9,47 @@ class ProductScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final productsState = ref.watch(productsNotifier);
-    return Scaffold(
-      body: productsState is ProductsStateSuccess
-          ? ListView.builder(
-              itemCount: productsState.products.length,
-              itemBuilder: (context, index) {
-                var productList = productsState.products[index];
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ListTile(
-                      title: Text(productList.title),
-                      subtitle: Text(productList.description),
+    return switch (productsState) {
+      ProductsStateSuccess() => Scaffold(
+          body: ListView.separated(
+            separatorBuilder: (BuildContext context, int index) =>
+                const Divider(),
+            itemCount: productsState.products.length,
+            itemBuilder: (context, index) {
+              var productList = productsState.products[index];
+              return ListTile(
+                title: Text(productList.title),
+                subtitle: Text(productList.description),
+              );
+            },
+          ),
+        ),
+      ProductsStateError() => Center(
+          child: Text(productsState.error.toString(),
+              style: const TextStyle(color: Colors.black))),
+      ProductsStateLoading() => const CircularProgressIndicator()
+    };
+   /* Scaffold(
+        body: productsState is ProductsStateSuccess
+            ? ListView.separated(
+                separatorBuilder: (BuildContext context, int index) =>
+                    const Divider(),
+                itemCount: productsState.products.length,
+                itemBuilder: (context, index) {
+                  var productList = productsState.products[index];
+                  return ListTile(
+                    title: Text(productList.title),
+                    subtitle: Text(productList.description),
+                  );
+                },
+              )
+            : productsState is ProductsStateError
+                ? Center(
+                    child: Text(
+                      productsState.error.toString(),
+                      style: TextStyle(color: Colors.black),
                     ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 10),
-                      height: 2, // Set the height of the line
-                      color: Colors.blue,
-                    ),
-                  ],
-                );
-              })
-      : productsState is ProductsStateError
-              ? Center(
-        child: Text(productsState.error.toString(),style: TextStyle(color: Colors.black),),
-    )
-              : const CircularProgressIndicator()
-    );
+                  )
+                : const CircularProgressIndicator());*/
   }
 }
