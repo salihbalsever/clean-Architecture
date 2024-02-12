@@ -1,19 +1,23 @@
 import 'package:diwithriverpood/data/datasources/product_local_data_source.dart';
 import 'package:diwithriverpood/data/datasources/product_remote_data_source.dart';
+import 'package:http/http.dart' as http;
 
+import '../../main.dart';
 import '../models/product_model.dart';
+abstract class IProductRepository{
+  Future<List<Product>> getProducts();
+}
+class ProductRepository extends IProductRepository{
+  @override
+  Future<List<Product>> getProducts() async {
+    final productLocalDataSource = getIt<IProductLocalDataSource>();
+    final productRemoteDataSource = getIt<IProductRemoteDataSource>();
 
-class ProductDataSourceRepository {
-  final ProductLocalDataSource _productLocalDataSource =
-      ProductLocalDataSource();
-  final ProductRemoteDataSource _productRemoteDataSource =
-      ProductRemoteDataSource();
 
-  Future<List<Product>> getProducts(String subUrl) async {
-    List<Product> products = await _productLocalDataSource.getProducts();
+    List<Product> products = await productLocalDataSource.getProducts();
     if (products.isEmpty) {
-      products = await _productRemoteDataSource.getProducts(subUrl: subUrl);
-      _productLocalDataSource.addItem(products);
+      products = await productRemoteDataSource.getProducts();
+      productLocalDataSource.addItems(products);
     }
     return products;
   }

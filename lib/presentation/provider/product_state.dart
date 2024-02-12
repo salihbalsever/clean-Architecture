@@ -1,19 +1,29 @@
 import '../../data/models/product_model.dart';
 
-class ProductState{
+sealed class ProductsState {
+  const ProductsState();
+}
 
-  bool dataExists;
-  List<Product> productList;
 
-  ProductState({required this.dataExists, required this.productList});
+class ProductsStateLoading extends ProductsState {
+  const ProductsStateLoading({this.progress = 0});
 
-  ProductState copyWith({
-    bool? dataExists,
-    List<Product>? productList,
-  }) {
-    return ProductState(
-      dataExists: dataExists ?? this.dataExists,
-      productList: productList ?? this.productList,
-    );
-  }
+
+  final double progress;
+}
+
+
+class ProductsStateError extends ProductsState {
+  const ProductsStateError({required this.error});
+
+
+  final String error;
+}
+
+
+class ProductsStateSuccess extends ProductsState {
+  const ProductsStateSuccess({required this.products});
+
+
+  final List<Product> products;
 }
