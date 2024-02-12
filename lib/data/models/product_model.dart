@@ -4,7 +4,6 @@
 
 import 'dart:convert';
 
-import 'package:diwithriverpood/core/base_model.dart';
 import 'package:hive/hive.dart';
 
 import 'rating_model.dart';

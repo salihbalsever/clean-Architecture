@@ -1,12 +1,17 @@
+import 'package:diwithriverpood/data/datasources/product_local_data_source.dart';
 import 'package:diwithriverpood/data/models/product_model.dart';
 import 'package:diwithriverpood/data/models/rating_model.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get_it/get_it.dart';
 
 import 'local_data_source_mock.dart';
+GetIt getIt = GetIt.instance;
 
 void main() {
   group('should create a getProducts and addProducts() function', () {
     test('should create a getProducts', () async {
+      getIt.registerSingleton<IProductLocalDataSource>(ProductLocalDataSource());
+
       final product = TestLocalDataSourceMock();
       expect(product.getProducts(), isA<Future<List<Product>>>());
     });

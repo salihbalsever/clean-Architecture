@@ -1,14 +1,19 @@
+import 'package:diwithriverpood/data/datasources/product_remote_data_source.dart';
 import 'package:diwithriverpood/data/models/rating_model.dart';
 import 'package:diwithriverpood/presentation/screen/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
-
+import 'package:http/http.dart'as http;
 import 'data/datasources/product_local_data_source.dart';
 import 'data/models/product_model.dart';
+GetIt getIt = GetIt.instance;
 
 Future<void> main() async {
+  getIt.registerSingleton<IProductLocalDataSource>(ProductLocalDataSource());
+  getIt.registerSingleton<IProductRemoteDataSource>(ProductRemoteDataSource(client: http.Client()));
   WidgetsFlutterBinding.ensureInitialized();
   await _initHive();
   runApp(const ProviderScope(child: MyApp()));

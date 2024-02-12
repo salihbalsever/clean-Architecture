@@ -7,8 +7,8 @@ import '../../data/models/product_model.dart';
 class ProductsNotifier extends StateNotifier<ProductsState> {
   ProductsNotifier() : super(const ProductsStateLoading());
 
-  ProductDataSourceRepository productDataSourceRepository =
-      ProductDataSourceRepository();
+  ProductRepository productDataSourceRepository =
+      ProductRepository();
 
   List<Product> _products = [];
 
